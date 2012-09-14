@@ -6,97 +6,203 @@
  * Version: 0.1 Alpha
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
-*/
+ *
+ * @package   Columns
+ * @version   0.1.0 - Alpha
+ * @author    Justin Tadlock <justin@justintadlock.com>
+ * @copyright Copyright (c) 2012, Justin Tadlock
+ * @link      http://justintadlock.com
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ *
+ * @todo      Lots of testing with the CSS to make sure it works.
+ * @todo      Better name???
+ * @todo      Possibly do some error handling for people who don't know rudimentary math.
+ */
 
+class Columns {
 
-add_action( 'init', 'columns_register_shortcodes' );
+	/**
+	 * The current grid.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @var    int
+	 */
+	public $grid = 0;
 
-add_action( 'wp_enqueue_scripts', 'columns_enqueue_styles', 1 );
+	/**
+	 * The current total number of columns in the grid.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @var    int
+	 */
+	public $span = 0;
 
-function columns_enqueue_styles() {
+	/**
+	 * Whether we're viewing the first column.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $is_first_column = false;
 
-	wp_enqueue_style(
-		'columns',
-		trailingslashit( plugin_dir_url( __FILE__ ) ) . 'columns.css',
-		null,
-		'20120913',
-		'all'
-	);
-}
+	/**
+	 * Whether we're viewing the last column.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $is_last_column = false;
 
-function columns_register_shortcodes() {
-	add_shortcode( 'column', 'columns_do_shortcode' );
-}
+	/**
+	 * Allowed grids can be 10, 12, or 16 columns.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @var    array
+	 */
+	public $allowed_grid = array( 10, 12, 16 );
 
-function columns_do_shortcode( $attr, $content = null ) {
-	global $_columns_grid, $_columns_span;
+	/**
+	 * Sets up our actions/filters.
+	 *
+	 * @since 0.1.0
+	 * @access public
+	 * @return void
+	 */
+	public function __construct() {
 
-	if ( is_null( $content ) )
-		return $content;
+		/* Register shortcodes on 'init'. */
+		add_action( 'init', array( &$this, 'register_shortcode' ) );
 
-	$defaults = array(
-		'grid' => 10,
-		'span' => '', // will be overwritten to be the same as $grid if empty
-		'class' => '',
-	);
-
-	$attr = shortcode_atts( $defaults, $attr );
-
-	$output = '';
-	$classes = array();
-
-	$classes[] = 'column';
-	$classes[] = "column-span-{$attr['span']}";
-
-	if ( isset( $attr['class'] ) )
-		$classes[] = $attr['class'];
-
-	$is_first_column = false;
-	$is_last_column = false;
-	$allowed_grid = array( 10, 12, 16 );
-	$allowed_span = array( 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 );
-	$attr['grid'] = absint( $attr['grid'] );
-	$attr['span'] = absint( $attr['span'] );
-
-	if ( 16 == $attr['grid'] )
-		$allowed_span = array_merge( $allowed_span, array( 13, 14, 15, 16 ) );
-
-
-	if ( empty( $_columns_grid ) ) {
-		$_columns_grid = $grid = in_array( $attr['grid'], $allowed_grid ) ? $attr['grid'] : 12;
-		$classes[] = 'column-first';
-		$is_first_column = true;
+		/* Enqueue stylesheets on 'wp_enqueue_scripts'. */
+		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_styles' ), 1 );
 	}
 
-	if ( empty( $attr['span'] ) )
-		$attr['span'] = $grid;
-
-	$_columns_span = in_array( $attr['span'], $allowed_span ) ? $_columns_span + $attr['span'] : $_columns_span;
-
-	if ( $_columns_grid == $_columns_span ) {
-		$classes[] = 'column-last';
-		$is_last_column = true;
-
-		$_columns_grid = 0;
-		$_columns_span = 0;
+	/**
+	 * Registers the [column] shortcode.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
+	public function register_shortcode() {
+		add_shortcode( 'column', array( &$this, 'do_shortcode' ) );
 	}
 
-	$class = join( ' ', array_map( 'sanitize_html_class', array_unique( $classes ) ) );
+	/**
+	 * Enqueues the columns.css stylesheet to make the columns pretty.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
+	public function enqueue_styles() {
 
-	if ( $is_first_column )
-		$output .= '<div class="column-grid ' . sanitize_html_class( "column-grid-{$attr['grid']}" ) . '">';
+		wp_enqueue_style(
+			'columns',
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'columns.css',
+			null,
+			'20120913'
+		);
+	}
 
-	$output .= '<div class="' . $class . '">' . wpautop( do_shortcode( $content ) ) . '</div>';
+	/**
+	 * Returns the content of the column shortcode.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @param  array  $attr The user-inputted arguments.
+	 * @param  string $content The content to wrap in a shortcode.
+	 * @return string
+	 */
+	public function do_shortcode( $attr, $content = null ) {
 
-	if ( $is_last_column )
-		$output .= '</div>';
+		/* If there's no content, just return back what we got. */
+		if ( is_null( $content ) )
+			return $content;
 
-	return $output;
+		/* Set up the default variables. */
+		$output = '';
+		$classes = array();
+		$attr = shortcode_atts( array( 'grid' => 10, 'span' => 1 ), $attr );
+
+		/* Only allow grids 10, 12, 16. */
+		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grid ) ? absint( $attr['grid'] ) : 10;
+
+		/* Span cannot be greater than the grid. */
+		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : $attr['grid'];
+
+		/* Add to the total $span. */
+		$this->span = $this->span + $attr['span'];
+
+		/* Classes. */
+		$classes[] = 'column';
+		$classes[] = "column-span-{$attr['span']}";
+
+		/* If the $grid property is equal to 0. */
+		if ( 0 == $this->grid ) {
+
+			/* Set the grid property to the current grid. */
+			/* Note that subsequent shortcodes can't overwrite this until a new set of columns are created. */
+			$this->grid = $attr['grid'];
+
+			/* Add the 'column-first' class. */
+			$classes[] = 'column-first';
+
+			/* Set the $is_first_column property to true. */
+			$this->is_first_column = true;
+		}
+
+		/* If the $span property is greater than (shouldn't be) or equal to the $grid property. */
+		if ( $this->span >= $this->grid ) {
+
+			/* Add the 'column-last' class. */
+			$classes[] = 'column-last';
+
+			/* Set the $is_last_column property to true. */
+			$this->is_last_column = true;
+		}
+
+		/* Sanitize and join all classes. */
+		$class = join( ' ', array_map( 'sanitize_html_class', array_unique( $classes ) ) );
+
+		/* Output */
+
+		/* If this is the first column. */
+		if ( $this->is_first_column ) {
+
+			/* Open a wrapper <div> to contain the columns. */
+			$output .= '<div class="column-grid ' . sanitize_html_class( "column-grid-{$this->grid}" ) . '">';
+
+			/* Set the $is_first_column property back to false. */
+			$this->is_first_column = false;
+		}
+
+		/* Add the current column to the output. */
+		$output .= '<div class="' . $class . '">' . wpautop( do_shortcode( $content ) ) . '</div>';
+
+		/* If this is the last column. */
+		if ( $this->is_last_column ) {
+
+			/* Close the wrapper. */
+			$output .= '</div>';
+
+			/* Set the $is_last_column property back to false. */
+			$this->is_last_column = false;
+
+			/* Set the $grid and $span properties back to 0. */
+			$this->grid = $this->span = 0;
+		}
+
+		/* Return the output of the column. */
+		return $output;
+	}
 }
 
-
-
-
-
+new Columns();
 
 ?>
