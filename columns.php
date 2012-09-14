@@ -128,10 +128,18 @@ class Columns {
 		/* Set up the default variables. */
 		$output = '';
 		$classes = array();
-		$attr = shortcode_atts( array( 'grid' => 10, 'span' => 1 ), $attr );
+
+		/* Set up the default arguments. */
+		$defaults = apply_filters( 'column_shortcode_defaults', array( 'grid' => 10, 'span' => 1 ) );
+
+		/* Parse the arguments. */
+		$attr = shortcode_atts( $defaults, $attr );
+
+		/* Allow devs to filter the arguments. */
+		$attr = apply_filters( 'column_shortcode_args', $attr );
 
 		/* Allow devs to overwrite the allowed grids. */
-		$this->allowed_grids = apply_filters( 'columns_allowed_grids', $this->allowed_grids );
+		$this->allowed_grids = apply_filters( 'column_shortcode_allowed_grids', $this->allowed_grids );
 
 		/* Only allow grids 10, 12, 16. */
 		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grids ) ? absint( $attr['grid'] ) : 10;
@@ -202,7 +210,7 @@ class Columns {
 		}
 
 		/* Return the output of the column. */
-		return $output;
+		return apply_filters( 'column_shortcode', $output );
 	}
 }
 
