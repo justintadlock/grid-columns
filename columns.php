@@ -102,11 +102,15 @@ class Columns {
 	 */
 	public function enqueue_styles() {
 
+		/* Use the .min stylesheet if SCRIPT_DEBUG is turned off. */
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		/* Enqueue the stylesheet. */
 		wp_enqueue_style(
 			'columns',
-			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'columns.css',
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . "columns$suffix.css",
 			null,
-			'20120913'
+			'20120914'
 		);
 	}
 
