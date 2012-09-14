@@ -64,7 +64,7 @@ class Columns {
 	 * @access public
 	 * @var    array
 	 */
-	public $allowed_grid = array( 10, 12, 16 );
+	public $allowed_grids = array( 10, 12, 16 );
 
 	/**
 	 * Sets up our actions/filters.
@@ -130,8 +130,11 @@ class Columns {
 		$classes = array();
 		$attr = shortcode_atts( array( 'grid' => 10, 'span' => 1 ), $attr );
 
+		/* Allow devs to overwrite the allowed grids. */
+		$this->allowed_grids = apply_filters( 'columns_allowed_grids', $this->allowed_grids );
+
 		/* Only allow grids 10, 12, 16. */
-		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grid ) ? absint( $attr['grid'] ) : 10;
+		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grids ) ? absint( $attr['grid'] ) : 10;
 
 		/* Span cannot be greater than the grid. */
 		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : $attr['grid'];
