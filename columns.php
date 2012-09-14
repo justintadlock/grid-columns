@@ -108,7 +108,7 @@ class Columns {
 		/* Enqueue the stylesheet. */
 		wp_enqueue_style(
 			'columns',
-			trailingslashit( plugin_dir_url( __FILE__ ) ) . "columns$suffix.css",
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
 			'20120914'
 		);
