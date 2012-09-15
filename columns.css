@@ -45,6 +45,22 @@
 .column-grid-16 .column-span-2  { width: 8.125%;   }
 .column-grid-16 .column-span-1  { width: 1.5625%;  }
 
+.column-grid-16 .push-15 { margin-left: 98.4375%; }
+.column-grid-16 .push-14 { margin-left: 91.875%;  }
+.column-grid-16 .push-13 { margin-left: 85.3125%; }
+.column-grid-16 .push-12 { margin-left: 78.75%    }
+.column-grid-16 .push-11 { margin-left: 72.1875%; }
+.column-grid-16 .push-10 { margin-left: 65.625%;  }
+.column-grid-16 .push-9  { margin-left: 59.0625%; }
+.column-grid-16 .push-8  { margin-left: 52.5%;    }
+.column-grid-16 .push-7  { margin-left: 45.9375%; }
+.column-grid-16 .push-6  { margin-left: 39.375%;  }
+.column-grid-16 .push-5  { margin-left: 32.8125%; }
+.column-grid-16 .push-4  { margin-left: 26.25%;   }
+.column-grid-16 .push-3  { margin-left: 19.6875%; }
+.column-grid-16 .push-2  { margin-left: 13.125%;  }
+.column-grid-16 .push-1  { margin-left: 5.5625%;  }
+
 /* $x = 8.75 */
 .column-grid-12 .column-span-12 { width: 100%;   }
 .column-grid-12 .column-span-11 { width: 91.25%; }
@@ -59,6 +75,18 @@
 .column-grid-12 .column-span-2  { width: 12.5%;  }
 .column-grid-12 .column-span-1  { width: 3.75%;  }
 
+.column-grid-12 .push-11 { margin-left: 96.25%; }
+.column-grid-12 .push-10 { margin-left: 87.5%;  }
+.column-grid-12 .push-9  { margin-left: 78.75%; }
+.column-grid-12 .push-8  { margin-left: 70%;    }
+.column-grid-12 .push-7  { margin-left: 61.25%; }
+.column-grid-12 .push-6  { margin-left: 52.5%;  }
+.column-grid-12 .push-5  { margin-left: 43.75%; }
+.column-grid-12 .push-4  { margin-left: 35%;    }
+.column-grid-12 .push-3  { margin-left: 26.25%; }
+.column-grid-12 .push-2  { margin-left: 17.5%;  }
+.column-grid-12 .push-1  { margin-left: 8.75%;  }
+
 /* $x = 10.5 */
 .column-grid-10 .column-span-10 { width: 100%;  }
 .column-grid-10 .column-span-9  { width: 89.5%; }
@@ -70,3 +98,13 @@
 .column-grid-10 .column-span-3  { width: 26.5%; }
 .column-grid-10 .column-span-2  { width: 16%;   }
 .column-grid-10 .column-span-1  { width: 5.5%;  }
+
+.column-grid-10 .push-9  { margin-left: 94.5%; }
+.column-grid-10 .push-8  { margin-left: 84%;   }
+.column-grid-10 .push-7  { margin-left: 73.5%; }
+.column-grid-10 .push-6  { margin-left: 63%;   }
+.column-grid-10 .push-5  { margin-left: 52.5%; }
+.column-grid-10 .push-4  { margin-left: 42%;   }
+.column-grid-10 .push-3  { margin-left: 31.5%; }
+.column-grid-10 .push-2  { margin-left: 21%;   }
+.column-grid-10 .push-1  { margin-left: 10.5%;  }
