@@ -131,7 +131,8 @@ class Columns {
 
 		/* Set up the default variables. */
 		$output = '';
-		$classes = array();
+		$row_classes = array();
+		$column_classes = array();
 
 		/* Set up the default arguments. */
 		$defaults = apply_filters( 'column_shortcode_defaults', array( 'grid' => 10, 'span' => 1 ) );
@@ -154,9 +155,9 @@ class Columns {
 		/* Add to the total $span. */
 		$this->span = $this->span + $attr['span'];
 
-		/* Classes. */
-		$classes[] = 'column';
-		$classes[] = "column-span-{$attr['span']}";
+		/* Column classes. */
+		$column_classes[] = 'column';
+		$column_classes[] = "column-span-{$attr['span']}";
 
 		/* If the $grid property is equal to 0. */
 		if ( 0 == $this->grid ) {
@@ -166,7 +167,7 @@ class Columns {
 			$this->grid = $attr['grid'];
 
 			/* Add the 'column-first' class. */
-			$classes[] = 'column-first';
+			$column_classes[] = 'column-first';
 
 			/* Set the $is_first_column property to true. */
 			$this->is_first_column = true;
@@ -176,14 +177,25 @@ class Columns {
 		if ( $this->span >= $this->grid ) {
 
 			/* Add the 'column-last' class. */
-			$classes[] = 'column-last';
+			$column_classes[] = 'column-last';
 
 			/* Set the $is_last_column property to true. */
 			$this->is_last_column = true;
 		}
 
+		/* Row classes. */
+		$row_classes = array( 'column-grid', "column-grid-{$this->grid}" );
+
+		/* Object properties. */
+		$object_vars = get_object_vars( $this );
+
+		/* Allow devs to create custom classes. */
+		$row_classes    = apply_filters( 'column_shortcode_row_class',    $row_classes,    $attr, $object_vars );
+		$column_classes = apply_filters( 'column_shortcode_column_class', $column_classes, $attr, $object_vars );
+
 		/* Sanitize and join all classes. */
-		$class = join( ' ', array_map( 'sanitize_html_class', array_unique( $classes ) ) );
+		$row_class    = join( ' ', array_map( 'sanitize_html_class', array_unique( $row_classes ) ) );
+		$column_class = join( ' ', array_map( 'sanitize_html_class', array_unique( $column_classes ) ) );
 
 		/* Output */
 
@@ -191,14 +203,14 @@ class Columns {
 		if ( $this->is_first_column ) {
 
 			/* Open a wrapper <div> to contain the columns. */
-			$output .= '<div class="column-grid ' . sanitize_html_class( "column-grid-{$this->grid}" ) . '">';
+			$output .= '<div class="' . $row_class . '">';
 
 			/* Set the $is_first_column property back to false. */
 			$this->is_first_column = false;
 		}
 
 		/* Add the current column to the output. */
-		$output .= '<div class="' . $class . '">' . wpautop( do_shortcode( $content ) ) . '</div>';
+		$output .= '<div class="' . $column_class . '">' . wpautop( do_shortcode( $content ) ) . '</div>';
 
 		/* If this is the last column. */
 		if ( $this->is_last_column ) {
