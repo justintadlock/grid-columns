@@ -128,20 +128,24 @@ class Columns {
 		/* Set up the default variables. */
 		$output = '';
 		$classes = array();
-		$attr = shortcode_atts( array( 'grid' => 10, 'span' => 1 ), $attr );
+		$attr = shortcode_atts( array( 'grid' => 10, 'span' => 1, 'push' => NULL ), $attr );
 
 		/* Only allow grids 10, 12, 16. */
 		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grid ) ? absint( $attr['grid'] ) : 10;
 
 		/* Span cannot be greater than the grid. */
 		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : $attr['grid'];
+                
+                /* Push cannot be greater than grid - 1 */
+                $attr['push'] = ( $attr['grid'] - 1 >= $attr['push'] ) ? absint( $attr['push'] ) : NULL;
 
 		/* Add to the total $span. */
-		$this->span = $this->span + $attr['span'];
+		$this->span = $this->span + $attr['span'] + $attr['push'];
 
 		/* Classes. */
 		$classes[] = 'column';
 		$classes[] = "column-span-{$attr['span']}";
+                if ( $attr['push'] ) $classes[] = "push-{$attr['push']}";
 
 		/* If the $grid property is equal to 0. */
 		if ( 0 == $this->grid ) {
