@@ -1,13 +1,13 @@
 <?php
 /*
- * Plugin Name: Columns
+ * Plugin Name: Grid Columns
  * Plugin URI: http://justintadlock.com
  * Description: A [column] shortcode plugin.
  * Version: 0.1 Alpha
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
- * @package   Columns
+ * @package   GridColumns
  * @version   0.1.0 - Alpha
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012, Justin Tadlock
@@ -15,11 +15,10 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  *
  * @todo      Lots of testing with the CSS to make sure it works.
- * @todo      Better name???
  * @todo      Possibly do some error handling for people who don't know rudimentary math.
  */
 
-class Columns {
+class Grid_Columns {
 
 	/**
 	 * The current grid.
@@ -135,16 +134,16 @@ class Columns {
 		$column_classes = array();
 
 		/* Set up the default arguments. */
-		$defaults = apply_filters( 'column_shortcode_defaults', array( 'grid' => 4, 'span' => 1, 'push' => 0 ) );
+		$defaults = apply_filters( 'gc_column_defaults', array( 'grid' => 4, 'span' => 1, 'push' => 0 ) );
 
 		/* Parse the arguments. */
 		$attr = shortcode_atts( $defaults, $attr );
 
 		/* Allow devs to filter the arguments. */
-		$attr = apply_filters( 'column_shortcode_args', $attr );
+		$attr = apply_filters( 'gc_column_args', $attr );
 
 		/* Allow devs to overwrite the allowed grids. */
-		$this->allowed_grids = apply_filters( 'column_shortcode_allowed_grids', $this->allowed_grids );
+		$this->allowed_grids = apply_filters( 'gc_allowed_grids', $this->allowed_grids );
 
 		/* Make sure the grid is in the allowed grids array. */
 		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grids ) ? absint( $attr['grid'] ) : 4;
@@ -167,7 +166,7 @@ class Columns {
 		if ( 0 == $this->grid ) {
 
 			/* Set the grid property to the current grid. */
-			/* Note that subsequent shortcodes can't overwrite this until a new set of columns are created. */
+			/* Note that subsequent shortcodes can't overwrite this until a new set of columns is created. */
 			$this->grid = $attr['grid'];
 
 			/* Add the 'column-first' class. */
@@ -194,8 +193,8 @@ class Columns {
 		$object_vars = get_object_vars( $this );
 
 		/* Allow devs to create custom classes. */
-		$row_classes    = apply_filters( 'column_shortcode_row_class',    $row_classes,    $attr, $object_vars );
-		$column_classes = apply_filters( 'column_shortcode_column_class', $column_classes, $attr, $object_vars );
+		$row_classes    = apply_filters( 'gc_row_class',    $row_classes,    $attr, $object_vars );
+		$column_classes = apply_filters( 'gc_column_class', $column_classes, $attr, $object_vars );
 
 		/* Sanitize and join all classes. */
 		$row_class    = join( ' ', array_map( 'sanitize_html_class', array_unique( $row_classes ) ) );
@@ -230,10 +229,10 @@ class Columns {
 		}
 
 		/* Return the output of the column. */
-		return apply_filters( 'column_shortcode', $output );
+		return apply_filters( 'gc_column', $output );
 	}
 }
 
-new Columns();
+new Grid_Columns();
 
 ?>
