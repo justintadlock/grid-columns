@@ -186,24 +186,24 @@ class Grid_Columns {
 			$this->is_last_column = true;
 		}
 
-		/* Row classes. */
-		$row_classes = array( 'column-grid', "column-grid-{$this->grid}" );
-
 		/* Object properties. */
 		$object_vars = get_object_vars( $this );
 
 		/* Allow devs to create custom classes. */
-		$row_classes    = apply_filters( 'gc_row_class',    $row_classes,    $attr, $object_vars );
 		$column_classes = apply_filters( 'gc_column_class', $column_classes, $attr, $object_vars );
 
 		/* Sanitize and join all classes. */
-		$row_class    = join( ' ', array_map( 'sanitize_html_class', array_unique( $row_classes ) ) );
 		$column_class = join( ' ', array_map( 'sanitize_html_class', array_unique( $column_classes ) ) );
 
 		/* Output */
 
 		/* If this is the first column. */
 		if ( $this->is_first_column ) {
+
+			/* Row classes. */
+			$row_classes = array( 'column-grid', "column-grid-{$this->grid}" );
+			$row_classes = apply_filters( 'gc_row_class', $row_classes, $attr, $object_vars );
+			$row_class = join( ' ', array_map( 'sanitize_html_class', array_unique( $row_classes ) ) );
 
 			/* Open a wrapper <div> to contain the columns. */
 			$output .= '<div class="' . $row_class . '">';
