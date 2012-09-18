@@ -152,6 +152,7 @@ class Columns {
 		/* Span cannot be greater than the grid. */
 		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : $attr['grid'];
 
+		/* The push argument should always be less than the grid. */
 		$attr['push'] = ( $attr['grid'] > $attr['push'] ) ? absint( $attr['push'] ) : 0;
 
 		/* Add to the total $span. */
