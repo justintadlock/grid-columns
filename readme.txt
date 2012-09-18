@@ -1,10 +1,12 @@
 === Usage ===
 
-**Example 1 (10 columns)**
+**Example 1 (4 columns)**
 
-[column grid="10" span="8"]Content.[/column]
+[column grid="4" span="2"]...[/column]
 
-[column grid="10" span="2"]Content.[/column]
+[column grid="4" span="1"]...[/column]
+
+[column grid="4" span="1"]...[/column]
 
 **Example 2 (12 columns)**
 
