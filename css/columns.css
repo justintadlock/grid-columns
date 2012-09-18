@@ -1,7 +1,7 @@
 /**
  * CSS for handling the [column] shortcode styles.
  *
- * @version   20120914
+ * @version   20120915
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012, Justin Tadlock
  * @link      http://justintadlock.com
@@ -23,7 +23,6 @@
 	margin-right: 5%;
 	}
 .column-first {
-	margin-left: 0;
 	}
 .column-last {
 	float: right;
@@ -79,3 +78,13 @@
 .column-grid-10 .column-span-3  { width: 26.5%; }
 .column-grid-10 .column-span-2  { width: 16%;   }
 .column-grid-10 .column-span-1  { width: 5.5%;  }
+
+.column-grid-10 .column-push-9  { margin-left: 94.5%; }
+.column-grid-10 .column-push-8  { margin-left: 84%;   }
+.column-grid-10 .column-push-7  { margin-left: 73.5%; }
+.column-grid-10 .column-push-6  { margin-left: 63%;   }
+.column-grid-10 .column-push-5  { margin-left: 52.5%; }
+.column-grid-10 .column-push-4  { margin-left: 42%;   }
+.column-grid-10 .column-push-3  { margin-left: 31.5%; }
+.column-grid-10 .column-push-2  { margin-left: 21%;   }
+.column-grid-10 .column-push-1  { margin-left: 10.5%; }

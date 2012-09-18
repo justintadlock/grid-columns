@@ -110,7 +110,7 @@ class Columns {
 			'columns',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
-			'20120914'
+			'20120915'
 		);
 	}
 
@@ -135,7 +135,7 @@ class Columns {
 		$column_classes = array();
 
 		/* Set up the default arguments. */
-		$defaults = apply_filters( 'column_shortcode_defaults', array( 'grid' => 10, 'span' => 1 ) );
+		$defaults = apply_filters( 'column_shortcode_defaults', array( 'grid' => 10, 'span' => 1, 'push' => 0 ) );
 
 		/* Parse the arguments. */
 		$attr = shortcode_atts( $defaults, $attr );
@@ -152,12 +152,15 @@ class Columns {
 		/* Span cannot be greater than the grid. */
 		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : $attr['grid'];
 
+		$attr['push'] = ( $attr['grid'] > $attr['push'] ) ? absint( $attr['push'] ) : 0;
+
 		/* Add to the total $span. */
-		$this->span = $this->span + $attr['span'];
+		$this->span = $this->span + $attr['span'] + $attr['push'];
 
 		/* Column classes. */
 		$column_classes[] = 'column';
 		$column_classes[] = "column-span-{$attr['span']}";
+		$column_classes[] = "column-push-{$attr['push']}";
 
 		/* If the $grid property is equal to 0. */
 		if ( 0 == $this->grid ) {
