@@ -57,7 +57,7 @@ class Grid_Columns {
 	public $is_last_column = false;
 
 	/**
-	 * Allowed grids can be 10, 12, or 16 columns.
+	 * Allowed grids can be 2, 3, 4, 5, or 12 columns.
 	 *
 	 * @since  0.1.0
 	 * @access public
