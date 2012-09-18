@@ -110,7 +110,7 @@ class Columns {
 			'columns',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
-			'20120915'
+			'20120917'
 		);
 	}
 
