@@ -3,12 +3,12 @@
  * Plugin Name: Grid Columns
  * Plugin URI: http://justintadlock.com
  * Description: A [column] shortcode plugin.
- * Version: 0.1 Alpha
+ * Version: 0.1 Beta 1
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
  * @package   GridColumns
- * @version   0.1.0 - Alpha
+ * @version   0.1.0 Beta 1
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012, Justin Tadlock
  * @link      http://justintadlock.com
