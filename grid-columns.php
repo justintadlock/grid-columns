@@ -106,7 +106,7 @@ class Grid_Columns {
 
 		/* Enqueue the stylesheet. */
 		wp_enqueue_style(
-			'columns',
+			'grid-columns',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
 			'20120917'
