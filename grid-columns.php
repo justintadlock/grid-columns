@@ -134,7 +134,15 @@ class Grid_Columns {
 		$column_classes = array();
 
 		/* Set up the default arguments. */
-		$defaults = apply_filters( 'gc_column_defaults', array( 'grid' => 4, 'span' => 1, 'push' => 0 ) );
+		$defaults = apply_filters(
+			'gc_column_defaults',
+			array(
+				'grid'  => 4,
+				'span'  => 1,
+				'push'  => 0,
+				'class' => ''
+			)
+		);
 
 		/* Parse the arguments. */
 		$attr = shortcode_atts( $defaults, $attr );
@@ -161,6 +169,13 @@ class Grid_Columns {
 		$column_classes[] = 'column';
 		$column_classes[] = "column-span-{$attr['span']}";
 		$column_classes[] = "column-push-{$attr['push']}";
+
+		/* Add user-input custom class(es). */
+		if ( !empty( $attr['class'] ) ) {
+			if ( !is_array( $attr['class'] ) )
+				$attr['class'] = preg_split( '#\s+#', $attr['class'] );
+			$column_classes = array_merge( $column_classes, $attr['class'] );
+		}
 
 		/* If the $grid property is equal to 0. */
 		if ( 0 == $this->grid ) {
