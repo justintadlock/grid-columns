@@ -157,7 +157,7 @@ class Grid_Columns {
 		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grids ) ? absint( $attr['grid'] ) : 4;
 
 		/* Span cannot be greater than the grid. */
-		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : $attr['grid'];
+		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : 1;
 
 		/* The push argument should always be less than the grid. */
 		$attr['push'] = ( $attr['grid'] > $attr['push'] ) ? absint( $attr['push'] ) : 0;
