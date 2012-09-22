@@ -27,7 +27,7 @@ class Grid_Columns {
 	 * @access public
 	 * @var    int
 	 */
-	public $grid = 0;
+	public $grid = 4;
 
 	/**
 	 * The current total number of columns in the grid.
@@ -45,7 +45,7 @@ class Grid_Columns {
 	 * @access public
 	 * @var    bool
 	 */
-	public $is_first_column = false;
+	public $is_first_column = true;
 
 	/**
 	 * Whether we're viewing the last column.
@@ -137,7 +137,7 @@ class Grid_Columns {
 		$defaults = apply_filters(
 			'gc_column_defaults',
 			array(
-				'grid'  => 4,
+				'grid'  => $this->grid,
 				'span'  => 1,
 				'push'  => 0,
 				'class' => ''
@@ -154,13 +154,14 @@ class Grid_Columns {
 		$this->allowed_grids = apply_filters( 'gc_allowed_grids', $this->allowed_grids );
 
 		/* Make sure the grid is in the allowed grids array. */
-		$attr['grid'] = in_array( $attr['grid'], $this->allowed_grids ) ? absint( $attr['grid'] ) : 4;
+		if ( $this->is_first_column && in_array( $attr['grid'], $this->allowed_grids ) )
+			$this->grid = absint( $attr['grid'] );
 
 		/* Span cannot be greater than the grid. */
-		$attr['span'] = ( $attr['grid'] >= $attr['span'] ) ? absint( $attr['span'] ) : 1;
+		$attr['span'] = ( $this->grid >= $attr['span'] ) ? absint( $attr['span'] ) : 1;
 
 		/* The push argument should always be less than the grid. */
-		$attr['push'] = ( $attr['grid'] > $attr['push'] ) ? absint( $attr['push'] ) : 0;
+		$attr['push'] = ( $this->grid > $attr['push'] ) ? absint( $attr['push'] ) : 0;
 
 		/* Add to the total $span. */
 		$this->span = $this->span + $attr['span'] + $attr['push'];
@@ -177,19 +178,9 @@ class Grid_Columns {
 			$column_classes = array_merge( $column_classes, $attr['class'] );
 		}
 
-		/* If the $grid property is equal to 0. */
-		if ( 0 == $this->grid ) {
-
-			/* Set the grid property to the current grid. */
-			/* Note that subsequent shortcodes can't overwrite this until a new set of columns is created. */
-			$this->grid = $attr['grid'];
-
-			/* Add the 'column-first' class. */
+		/* Add the 'column-first' class if this is the first column. */
+		if ( $this->is_first_column )
 			$column_classes[] = 'column-first';
-
-			/* Set the $is_first_column property to true. */
-			$this->is_first_column = true;
-		}
 
 		/* If the $span property is greater than (shouldn't be) or equal to the $grid property. */
 		if ( $this->span >= $this->grid ) {
@@ -236,15 +227,25 @@ class Grid_Columns {
 			/* Close the wrapper. */
 			$output .= '</div>';
 
-			/* Set the $is_last_column property back to false. */
-			$this->is_last_column = false;
-
-			/* Set the $grid and $span properties back to 0. */
-			$this->grid = $this->span = 0;
+			/* Reset the properties that have been changed. */
+			$this->reset();
 		}
 
 		/* Return the output of the column. */
 		return apply_filters( 'gc_column', $output );
+	}
+
+	/**
+	 * Resets the properties to their original states.
+	 *
+	 * @since  0.1.0
+	 * @access public
+	 * @return void
+	 */
+	public function reset() {
+
+		foreach ( get_class_vars( __CLASS__ ) as $name => $default )
+			$this->$name = $default;
 	}
 }
 
