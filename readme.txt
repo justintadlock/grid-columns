@@ -4,6 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: shortcode
 Requires at least: 3.4
 Tested up to: 3.5
+License: GPLv2 or later
 Stable tag: 0.1
 
 A [column] shortcode that allows users to create columnized content.
