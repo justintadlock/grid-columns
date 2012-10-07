@@ -1,7 +1,7 @@
 /**
  * CSS for handling the [column] shortcode styles.
  *
- * @version   20120917
+ * @version   20121007
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012, Justin Tadlock
  * @link      http://justintadlock.com
@@ -18,15 +18,17 @@
 	clear: both;
 	visibility: hidden;
 	}
-.column {
+.column-grid .column {
 	float: left;
 	margin-right: 5%;
 	}
-.column-first {
+.column-grid .column-first {
+	margin-left: 0;
 	}
-.column-last {
+.column-grid .column-last {
 	float: right;
 	margin-right: 0;
+	margin-left: 0;
 	}
 
 /**
