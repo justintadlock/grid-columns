@@ -21,6 +21,7 @@
 .column-grid .column {
 	float: left;
 	margin-right: 5%;
+	margin-left: 0;
 	}
 .column-grid .column-first {
 	margin-left: 0;
