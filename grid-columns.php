@@ -91,6 +91,11 @@ class Grid_Columns {
 
 		/* Enqueue stylesheets on 'wp_enqueue_scripts'. */
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_styles' ), 1 );
+
+		/* Apply filters to the column content. */
+		add_filter( 'gc_column_content', 'wpautop' );
+		add_filter( 'gc_column_content', 'shortcode_unautop' );
+		add_filter( 'gc_column_content', 'do_shortcode' );
 	}
 
 	/**
@@ -231,7 +236,7 @@ class Grid_Columns {
 		}
 
 		/* Add the current column to the output. */
-		$output .= '<div class="' . $column_class . '">' . wpautop( do_shortcode( $content ) ) . '</div>';
+		$output .= '<div class="' . $column_class . '">' . apply_filters( 'gc_column_content', $content ) . '</div>';
 
 		/* If this is the last column. */
 		if ( $this->is_last_column ) {
