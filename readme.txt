@@ -5,7 +5,7 @@ Tags: shortcode
 Requires at least: 3.4
 Tested up to: 3.5
 License: GPLv2 or later
-Stable tag: 0.1
+Stable tag: 0.1.1
 
 A [column] shortcode that allows users to create columnized content.
 
@@ -60,6 +60,12 @@ You'll notice that each "span" is equal to the number of columns in the grid.  S
 If you need a more detailed guide, see `readme.html`, which is included with the plugin.  It has a few examples and explains everything.
 
 == Changelog ==
+
+**Version 0.1.1**
+
+* Add more specific prefixes in the CSS.
+* Add some better margin handling in case other CSS code is overwriting things willy-nilly.
+* Add the `gc_column_content` filter hook and use it to apply formatting.
 
 **Version 0.1**
 
