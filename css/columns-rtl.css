@@ -1,0 +1,62 @@
+/**
+ * CSS (RTL) for handling the [column] shortcode styles.
+ *
+ * @version   20121024
+ * @author    Yakir Sitbon (http://www.yakirs.net/)
+ * @copyright Copyright (c) 2012, Justin Tadlock
+ * @link      http://justintadlock.com
+ * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ */
+
+.column-grid .column {
+	float: right;
+	margin-left: 5%;
+	margin-right: 0;
+	}
+.column-grid .column-first {
+	margin-right: 0;
+	}
+.column-grid .column-last {
+	float: left;
+	}
+
+/* === 2 columns === */
+
+/* $x = 52.5 */
+.column-grid-2 .column-push-1 { margin-right: 52.5%; margin-left: 5%; }
+
+/* === 3 columns === */
+
+/* $x = 35 */
+.column-grid-3 .column-push-2 { margin-right: 70%; margin-left: 5%; }
+.column-grid-3 .column-push-1 { margin-right: 35%; margin-left: 5%; }
+
+/* === 4 columns === */
+
+/* $x = 26.25 */
+.column-grid-4 .column-push-3 { margin-right: 78.75%; margin-left: 5%; }
+.column-grid-4 .column-push-2 { margin-right: 52.5%; margin-left: 5%;  }
+.column-grid-4 .column-push-1 { margin-right: 26.25%; margin-left: 5%; }
+
+/* === 5 columns === */
+
+/* $x = 21 */
+.column-grid-5 .column-push-4 { margin-right: 84%; margin-left: 5%; }
+.column-grid-5 .column-push-3 { margin-right: 63%; margin-left: 5%; }
+.column-grid-5 .column-push-2 { margin-right: 42%; margin-left: 5%; }
+.column-grid-5 .column-push-1 { margin-right: 21%; margin-left: 5%; }
+
+/* === 12 columns === */
+
+/* $x = 8.75 */
+.column-grid-12 .column-push-11 { margin-right: 96.25%; margin-left: 5%; }
+.column-grid-12 .column-push-10 { margin-right: 87.5%; margin-left: 5%;  }
+.column-grid-12 .column-push-9  { margin-right: 78.75%; margin-left: 5%; }
+.column-grid-12 .column-push-8  { margin-right: 69%; margin-left: 5%;    }
+.column-grid-12 .column-push-7  { margin-right: 61.25%; margin-left: 5%; }
+.column-grid-12 .column-push-6  { margin-right: 52.5%; margin-left: 5%;  }
+.column-grid-12 .column-push-5  { margin-right: 43.75%; margin-left: 5%; }
+.column-grid-12 .column-push-4  { margin-right: 35%; margin-left: 5%;    }
+.column-grid-12 .column-push-3  { margin-right: 26.25%; margin-left: 5%; }
+.column-grid-12 .column-push-2  { margin-right: 17.5%; margin-left: 5%;  }
+.column-grid-12 .column-push-1  { margin-right: 8.75%; margin-left: 5%;  }
