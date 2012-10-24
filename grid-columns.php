@@ -128,6 +128,16 @@ class Grid_Columns {
 			null,
 			'20121007'
 		);
+
+		/* Enqueue the rtl stylesheet. */
+		if ( is_rtl() ) {
+			wp_enqueue_style(
+				'grid-columns-rtl',
+				trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns-rtl.css", // .min rtl stylesheet wiil be add soon.
+				array( 'grid-columns' ),
+				'20121024'
+			);
+		}
 	}
 
 	/**
