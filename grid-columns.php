@@ -126,7 +126,7 @@ class Grid_Columns {
 			'grid-columns',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
-			'20121007'
+			'20121025'
 		);
 	}
 

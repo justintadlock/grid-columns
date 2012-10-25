@@ -1,7 +1,7 @@
 /**
  * CSS for handling the [column] shortcode styles.
  *
- * @version   20121007
+ * @version   20121025
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012, Justin Tadlock
  * @link      http://justintadlock.com
@@ -109,3 +109,45 @@
 .column-grid-12 .column-push-3  { margin-left: 26.25%; }
 .column-grid-12 .column-push-2  { margin-left: 17.5%;  }
 .column-grid-12 .column-push-1  { margin-left: 8.75%;  }
+
+/* === Right-to-Left === */
+
+.rtl .column-grid .column {
+	float: right;
+	margin-left: 5%;
+	margin-right: 0;
+	}
+.rtl .column-grid .column-first {
+	margin-right: 0;
+	}
+.rtl .column-grid .column-last {
+	float: left;
+	margin-right: 0;
+	margin-left: 0;
+	}
+
+.rtl .column-grid-2 .column-push-1 { margin-right: 52.5%; }
+
+.rtl .column-grid-3 .column-push-2 { margin-right: 70%; }
+.rtl .column-grid-3 .column-push-1 { margin-right: 35%; }
+
+.rtl .column-grid-4 .column-push-3 { margin-right: 78.75%; }
+.rtl .column-grid-4 .column-push-2 { margin-right: 52.5%;  }
+.rtl .column-grid-4 .column-push-1 { margin-right: 26.25%; }
+
+.rtl .column-grid-5 .column-push-4 { margin-right: 84%; }
+.rtl .column-grid-5 .column-push-3 { margin-right: 63%; }
+.rtl .column-grid-5 .column-push-2 { margin-right: 42%; }
+.rtl .column-grid-5 .column-push-1 { margin-right: 21%; }
+
+.rtl .column-grid-12 .column-push-11 { margin-right: 96.25%; }
+.rtl .column-grid-12 .column-push-10 { margin-right: 87.5%;  }
+.rtl .column-grid-12 .column-push-9  { margin-right: 78.75%; }
+.rtl .column-grid-12 .column-push-8  { margin-right: 69%;    }
+.rtl .column-grid-12 .column-push-7  { margin-right: 61.25%; }
+.rtl .column-grid-12 .column-push-6  { margin-right: 52.5%;  }
+.rtl .column-grid-12 .column-push-5  { margin-right: 43.75%; }
+.rtl .column-grid-12 .column-push-4  { margin-right: 35%;    }
+.rtl .column-grid-12 .column-push-3  { margin-right: 26.25%; }
+.rtl .column-grid-12 .column-push-2  { margin-right: 17.5%;  }
+.rtl .column-grid-12 .column-push-1  { margin-right: 8.75%;  }
