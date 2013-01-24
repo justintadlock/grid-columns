@@ -1,9 +1,9 @@
 /**
  * CSS for handling the [column] shortcode styles.
  *
- * @version   20121025
+ * @version   20130123
  * @author    Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2012, Justin Tadlock
+ * @copyright Copyright (c) 2013, Justin Tadlock
  * @link      http://justintadlock.com
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -30,6 +30,15 @@
 	float: right;
 	margin-right: 0;
 	margin-left: 0;
+	}
+
+/* Some rules in case wpautop() goes a little crazy. */
+.column-grid br,
+.column-grid p:empty {
+	display: none;
+	}
+.column-grid .column br {
+	display: block;
 	}
 
 /**
