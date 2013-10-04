@@ -98,6 +98,8 @@ It's possible, but you'll probably break something.  I recommend against attempt
 
 * Added CSS style rules to override some issues with WordPress' `wpautop()`, which sometimes adds empty `<p>` and extra `<br />` tags.
 * Added support for right-to-left languages.
+* No more anonymous objects created by the plugin class.
+* No need for `&` when adding an action/filter.
 
 ### Version 0.1.1
 
