@@ -3,7 +3,7 @@
  * Plugin Name: Grid Columns
  * Plugin URI: http://themehybrid.com/plugins/grid-columns
  * Description: A [column] shortcode plugin.
- * Version: 0.1.1
+ * Version: 0.2.0
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -23,14 +23,23 @@
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package   GridColumns
- * @version   0.1.1
+ * @version   0.2.0
  * @author    Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2012, Justin Tadlock
+ * @copyright Copyright (c) 2012 - 2013, Justin Tadlock
  * @link      http://themehybrid.com/plugins/grid-columns
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 class Grid_Columns {
+
+	/**
+	 * Holds the instance of this class.
+	 *
+	 * @since  0.2.0
+	 * @access private
+	 * @var    object
+	 */
+	private static $instance;
 
 	/**
 	 * The current grid.
@@ -87,10 +96,10 @@ class Grid_Columns {
 	public function __construct() {
 
 		/* Register shortcodes on 'init'. */
-		add_action( 'init', array( &$this, 'register_shortcode' ) );
+		add_action( 'init', array( $this, 'register_shortcode' ) );
 
 		/* Enqueue stylesheets on 'wp_enqueue_scripts'. */
-		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_styles' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 1 );
 
 		/* Apply filters to the column content. */
 		add_filter( 'gc_column_content', 'wpautop' );
@@ -106,7 +115,7 @@ class Grid_Columns {
 	 * @return void
 	 */
 	public function register_shortcode() {
-		add_shortcode( 'column', array( &$this, 'do_shortcode' ) );
+		add_shortcode( 'column', array( $this, 'do_shortcode' ) );
 	}
 
 	/**
@@ -126,7 +135,7 @@ class Grid_Columns {
 			'grid-columns',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
-			'20121007'
+			'20130123'
 		);
 	}
 
@@ -261,11 +270,29 @@ class Grid_Columns {
 	 */
 	public function reset() {
 
-		foreach ( get_class_vars( __CLASS__ ) as $name => $default )
-			$this->$name = $default;
+		foreach ( get_class_vars( __CLASS__ ) as $name => $default ) {
+
+			if ( 'instance' !== $name )
+				$this->$name = $default;
+		}
+	}
+
+	/**
+	 * Returns the instance.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return object
+	 */
+	public static function get_instance() {
+
+		if ( !self::$instance )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 }
 
-new Grid_Columns();
+Grid_Columns::get_instance();
 
 ?>
