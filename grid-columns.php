@@ -33,6 +33,15 @@
 class Grid_Columns {
 
 	/**
+	 * Holds the instance of this class.
+	 *
+	 * @since  0.2.0
+	 * @access private
+	 * @var    object
+	 */
+	private static $instance;
+
+	/**
 	 * The current grid.
 	 *
 	 * @since  0.1.0
@@ -261,11 +270,29 @@ class Grid_Columns {
 	 */
 	public function reset() {
 
-		foreach ( get_class_vars( __CLASS__ ) as $name => $default )
-			$this->$name = $default;
+		foreach ( get_class_vars( __CLASS__ ) as $name => $default ) {
+
+			if ( 'instance' !== $name )
+				$this->$name = $default;
+		}
+	}
+
+	/**
+	 * Returns the instance.
+	 *
+	 * @since  0.2.0
+	 * @access public
+	 * @return object
+	 */
+	public static function get_instance() {
+
+		if ( !self::$instance )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 }
 
-new Grid_Columns();
+Grid_Columns::get_instance();
 
 ?>
