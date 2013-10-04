@@ -87,10 +87,10 @@ class Grid_Columns {
 	public function __construct() {
 
 		/* Register shortcodes on 'init'. */
-		add_action( 'init', array( &$this, 'register_shortcode' ) );
+		add_action( 'init', array( $this, 'register_shortcode' ) );
 
 		/* Enqueue stylesheets on 'wp_enqueue_scripts'. */
-		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_styles' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 1 );
 
 		/* Apply filters to the column content. */
 		add_filter( 'gc_column_content', 'wpautop' );
@@ -106,7 +106,7 @@ class Grid_Columns {
 	 * @return void
 	 */
 	public function register_shortcode() {
-		add_shortcode( 'column', array( &$this, 'do_shortcode' ) );
+		add_shortcode( 'column', array( $this, 'do_shortcode' ) );
 	}
 
 	/**
