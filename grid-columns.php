@@ -104,7 +104,7 @@ class Grid_Columns {
 		/* Apply filters to the column content. */
 		add_filter( 'gc_column_content', 'wpautop' );
 		add_filter( 'gc_column_content', 'shortcode_unautop' );
-		add_filter( 'gc_column_content', 'do_shortcode' );
+		add_filter( 'gc_column_content', 'do_shortcode', 11 );
 	}
 
 	/**
