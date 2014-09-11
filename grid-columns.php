@@ -135,7 +135,8 @@ class Grid_Columns {
 			'grid-columns',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . "css/columns$suffix.css",
 			null,
-			'20130123'
+			'20130123',
+			apply_filters('gc_css_media_type', 'all')
 		);
 	}
 
