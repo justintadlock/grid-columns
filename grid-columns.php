@@ -60,6 +60,15 @@ class Grid_Columns {
 	public $span = 0;
 
 	/**
+	 * Keep track of current column number.
+	 *
+	 * @since  0.3.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $current_column = 1;
+
+	/**
 	 * Whether we're viewing the first column.
 	 *
 	 * @since  0.1.0
@@ -194,6 +203,7 @@ class Grid_Columns {
 
 		/* Column classes. */
 		$column_classes[] = 'column';
+		$column_classes[] = "column-{$this->current_column}";
 		$column_classes[] = "column-span-{$attr['span']}";
 		$column_classes[] = "column-push-{$attr['push']}";
 
@@ -256,6 +266,9 @@ class Grid_Columns {
 			/* Reset the properties that have been changed. */
 			$this->reset();
 		}
+        else {
+            $this->current_column ++;
+        }
 
 		/* Return the output of the column. */
 		return apply_filters( 'gc_column', $output );
