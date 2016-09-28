@@ -3,7 +3,7 @@
  * Plugin Name: Grid Columns
  * Plugin URI: http://themehybrid.com/plugins/grid-columns
  * Description: A [column] shortcode plugin.
- * Version: 0.3.0
+ * Version: 0.4.0
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -23,7 +23,7 @@
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package   GridColumns
- * @version   0.3.0
+ * @version   0.4.0
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012 - 2013, Justin Tadlock
  * @link      http://themehybrid.com/plugins/grid-columns
