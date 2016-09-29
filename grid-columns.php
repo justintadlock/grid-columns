@@ -256,7 +256,7 @@ class Grid_Columns {
 		}
 
 		/* Add the current column to the output. */
-		$output .= '<div class="' . $column_class . '" style="' . esc_attr( $attr['style'] ) . '">' . apply_filters( 'gc_column_content', $content ) . '</div>';
+		$output .= '<div class="' . $column_class . '" style="' . esc_attr( $attr['style'] ) . '">' . apply_filters( 'gc_column_content', $content, $attr, $object_vars ) . '</div>';
 
 		/* If this is the last column. */
 		if ( $this->is_last_column ) {
