@@ -3,7 +3,7 @@
  * Plugin Name: Grid Columns
  * Plugin URI: http://themehybrid.com/plugins/grid-columns
  * Description: A [column] shortcode plugin.
- * Version: 0.2.0
+ * Version: 0.4.0
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -23,7 +23,7 @@
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package   GridColumns
- * @version   0.2.0
+ * @version   0.4.0
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2012 - 2013, Justin Tadlock
  * @link      http://themehybrid.com/plugins/grid-columns
@@ -58,6 +58,15 @@ class Grid_Columns {
 	 * @var    int
 	 */
 	public $span = 0;
+
+	/**
+	 * Keep track of current column number.
+	 *
+	 * @since  0.3.0
+	 * @access public
+	 * @var    bool
+	 */
+	public $current_column = 1;
 
 	/**
 	 * Whether we're viewing the first column.
@@ -104,7 +113,7 @@ class Grid_Columns {
 		/* Apply filters to the column content. */
 		add_filter( 'gc_column_content', 'wpautop' );
 		add_filter( 'gc_column_content', 'shortcode_unautop' );
-		add_filter( 'gc_column_content', 'do_shortcode' );
+		add_filter( 'gc_column_content', 'do_shortcode', 11 );
 	}
 
 	/**
@@ -166,7 +175,8 @@ class Grid_Columns {
 				'grid'  => $this->grid,
 				'span'  => 1,
 				'push'  => 0,
-				'class' => ''
+				'class' => '',
+				'style' => '',
 			)
 		);
 
@@ -194,6 +204,7 @@ class Grid_Columns {
 
 		/* Column classes. */
 		$column_classes[] = 'column';
+		$column_classes[] = "column-{$this->current_column}";
 		$column_classes[] = "column-span-{$attr['span']}";
 		$column_classes[] = "column-push-{$attr['push']}";
 
@@ -245,7 +256,7 @@ class Grid_Columns {
 		}
 
 		/* Add the current column to the output. */
-		$output .= '<div class="' . $column_class . '">' . apply_filters( 'gc_column_content', $content ) . '</div>';
+		$output .= '<div class="' . $column_class . '" style="' . esc_attr( $attr['style'] ) . '">' . apply_filters( 'gc_column_content', $content, $attr, $object_vars ) . '</div>';
 
 		/* If this is the last column. */
 		if ( $this->is_last_column ) {
@@ -256,6 +267,9 @@ class Grid_Columns {
 			/* Reset the properties that have been changed. */
 			$this->reset();
 		}
+        else {
+            $this->current_column ++;
+        }
 
 		/* Return the output of the column. */
 		return apply_filters( 'gc_column', $output );
